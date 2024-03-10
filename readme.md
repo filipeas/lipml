@@ -7,6 +7,8 @@
 - Execute ``` make ``` on terminal.
 
 ## Functions
-- Filters
-    - Median
-    - Average
+- Operations
+    - Dilation
+    - Erosion
+    - Opening
+    - Closing

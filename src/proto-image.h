@@ -1,12 +1,12 @@
 typedef struct Image{
     int width;
     int height;
-    std::vector<unsigned char>  image;
+    std::vector<unsigned char> image;
 }Image;
 
+// function forr create image
+Image *createImage(int width, int height);
 // function for load image
 Image *loadImage(const char* filename);
-// function for apply average filter
-Image *averageFilter(Image *image);
-// function for apply mediam filter
-Image *medianFilter(Image *image);
+// function for save image
+int saveImage(Image *image, const char* filename);
