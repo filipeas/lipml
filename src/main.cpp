@@ -21,7 +21,7 @@ int main(){
     // saveImage(new_image, "nova_imagem.png");
 
     // dilation
-    saveImage(dilation(image, 1), "dilation.png");
+    saveImage(dilation(image, 3), "dilation.png");
 
     return 0;
 }

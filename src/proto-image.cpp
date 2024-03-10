@@ -71,12 +71,12 @@ Image *dilation(Image *image, int kernel){
     std::vector<unsigned char> dilatedImage = image->image;
 
     // Percorre todos os pixels da imagem
-    for (int y = 1; y < image->height - 1; ++y) {
-        for (int x = 1; x < image->width - 1; ++x) {
+    for (int y = 0; y < image->height; y++) {
+        for (int x = 0; x < image->width; x++) {
             if (image->image[4 * (y * image->width + x)] == 0) { // Se o pixel atual é preto
                 // Verifica a vizinhança do pixel atual
-                for (int ky = -kernel; ky <= kernel; ++ky) {
-                    for (int kx = -kernel; kx <= kernel; ++kx) {
+                for (int ky = -kernel; ky <= kernel; ky++) {
+                    for (int kx = -kernel; kx <= kernel; kx++) {
                         // Se algum vizinho do pixel atual é branco, então dilata
                         if (image->image[4 * ((y + ky) * image->width + (x + kx))] == 255) {
                             dilatedImage[4 * (y * image->width + x) + 0] = 255;
