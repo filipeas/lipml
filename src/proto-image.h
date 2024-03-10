@@ -1,3 +1,5 @@
+#include <vector>
+
 typedef struct Image{
     int width;
     int height;
@@ -10,3 +12,8 @@ Image *createImage(int width, int height);
 Image *loadImage(const char* filename);
 // function for save image
 int saveImage(Image *image, const char* filename);
+
+/**
+ * Functions for operations
+*/
+Image *dilation(Image *image, int kernel);
