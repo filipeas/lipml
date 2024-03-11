@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "proto-image.h"
 
@@ -12,12 +13,12 @@ int main(){
     Image *image = loadImage(filename);
 
     // convert to gray scale
-    Image *gray = convertToGrayscale(image);
+    // Image *gray = convertToGrayscale(image);
 
     // check dimensions
-    cout << "Image width: " << gray->width << endl;
-    cout << "Image height: " << gray->height << endl;
-    cout << "Image channels: " << gray->channels << endl;
+    cout << "Image width: " << image->width << endl;
+    cout << "Image height: " << image->height << endl;
+    cout << "Image channels: " << image->channels << endl;
 
     // creating new image
     // Image *new_image = createImage(image->width, image->height);
@@ -26,10 +27,20 @@ int main(){
     // saveImage(convertToGrayscale(image), "nova_imagem.png"); // salvando imagem em tons de cinza
     // saveImage(image, "nova_imagem.png"); // salvando imagem colorida
 
+    // creating vectors
+    std::vector<std::vector<int> > kernel_row = rowKernel(9, 1);
+    std::vector<std::vector<int> > kernel_col = colKernel(3, 1);
+    std::vector<std::vector<int> > kernel_square = squareKernel(5, 1);
+    std::vector<std::vector<int> > kernel_rectangular = rectangularKernel(6, 3, 1);
+    std::vector<std::vector<int> > kernel_circular = circularKernel(3, 1);
+
+    // printing kernels
+    // printMatrix(kernel_col);
+
     // dilation
-    saveImage(dilation(image, 10), "dilation.png");
+    saveImage(dilation(image, kernel_row), "dilation.png");
     // erosion
-    saveImage(erosion(image, 10), "erosion.png");
+    saveImage(erosion(image, kernel_row), "erosion.png");
 
     return 0;
 }
