@@ -1,13 +1,14 @@
 #include <iostream>
 #include <vector>
-
+#include <tuple>
 #include "proto-image.h"
 
 using namespace std;
 
 int main(){
-    const char* filename = "./images/morfology.png";
-    // const char* filename = "./images/dog.png";
+    std::cout << "oi";
+    // const char* filename = "./images/morfology.png";
+    const char* filename = "./images/dog.png";
 
     // loading image
     Image *image = loadImage(filename);
@@ -30,7 +31,7 @@ int main(){
     // creating vectors
     std::vector<std::vector<int> > kernel_row = rowKernel(9, 1);
     std::vector<std::vector<int> > kernel_col = colKernel(3, 1);
-    std::vector<std::vector<int> > kernel_square = squareKernel(5, 1);
+    std::vector<std::vector<int> > kernel_square = squareKernel(3, 1);
     std::vector<std::vector<int> > kernel_rectangular = rectangularKernel(6, 3, 1);
     std::vector<std::vector<int> > kernel_circular = circularKernel(3, 1);
 
@@ -38,9 +39,9 @@ int main(){
     // printMatrix(kernel_col);
 
     // dilation
-    saveImage(dilation(image, kernel_row), "dilation.png");
+    saveImage(dilation(image, kernel_square), "dilation.png");
     // erosion
-    saveImage(erosion(image, kernel_row), "erosion.png");
+    saveImage(erosion(image, kernel_square), "erosion.png");
 
     return 0;
 }

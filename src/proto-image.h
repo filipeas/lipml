@@ -1,5 +1,12 @@
 #include <vector>
+#include <tuple>
 
+typedef struct Color {
+    char r, g, b;
+} Color;
+
+// std::vector<std::vector<tuple<int, int, int> > > convertImageToMatrix(const std::vector<std::vector<Color> > &image);
+std::vector<std::vector<std::tuple<int, int, int>> > convertImageToMatrix(const std::vector<std::vector<Color> > &image);
 typedef struct Image{
     int width;
     int height;
