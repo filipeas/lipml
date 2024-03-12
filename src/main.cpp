@@ -6,7 +6,6 @@
 using namespace std;
 
 int main(){
-    std::cout << "oi";
     // const char* filename = "./images/morfology.png";
     const char* filename = "./images/dog.png";
 
@@ -42,6 +41,9 @@ int main(){
     saveImage(dilation(image, kernel_square), "dilation.png");
     // erosion
     saveImage(erosion(image, kernel_square), "erosion.png");
+
+    // destroy image
+    destroyImage(image);
 
     return 0;
 }

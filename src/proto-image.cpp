@@ -7,7 +7,7 @@
 #include "lodepng.h"
 
 Image *createImage(int width, int height){
-    Image *proto_image = (Image *) malloc(sizeof(Image));
+    Image *proto_image = new Image();
 
     std::vector<unsigned char> image;
     image.resize(width * height * 4); // 4 for RGBA (1 byte for band). Must be 4 because of bib lodepng, that receive 4 bytes for create image on RGBA format
@@ -26,11 +26,18 @@ Image *createImage(int width, int height){
     return proto_image;
 }
 
+void destroyImage(Image *image) {
+    if (image != NULL) {
+        free(image->image.data()); // Liberando o vetor de bytes da imagem
+        free(image); // Liberando a estrutura Image
+    }
+}
+
 /**
  * Function always load RGBA image, i.e. load image with 4 channels
 */
 Image *loadImage(const char* filename){
-    Image *proto_image = (Image *) malloc(sizeof(Image));
+    Image *proto_image = new Image();
 
     std::vector<unsigned char> image;
     unsigned width, height;
@@ -38,6 +45,7 @@ Image *loadImage(const char* filename){
     unsigned error = lodepng::decode(image, width, height, filename);
     if(error) {
         std::cerr << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
+        destroyImage(proto_image);
     }
 
     proto_image->width = width;
@@ -52,7 +60,7 @@ Image *loadImage(const char* filename){
  * Function convert image with C channels to image with 1 channel
 */
 Image *convertToGrayscale(Image *image) {
-    Image *proto_image = (Image *) malloc(sizeof(Image));
+    Image *proto_image = new Image();
 
     std::vector<unsigned char> grayscaleImage;
     grayscaleImage.reserve(image->width * image->height); // Reservar espaço para a imagem em escala de cinza
@@ -144,7 +152,7 @@ void printMatrix(const std::vector<std::vector<int> > &matrix){
 }
 
 Image *dilation(Image *image, std::vector<std::vector<int> > &kernel){
-    Image *proto_image = (Image *) malloc(sizeof(Image));
+    Image *proto_image = new Image();
 
     // Converter a imagem em uma matriz 2D de inteiros
     std::vector<std::vector<int> > image2d(image->height, std::vector<int>(image->width));
@@ -204,7 +212,7 @@ Image *dilation(Image *image, std::vector<std::vector<int> > &kernel){
 }
 
 Image *erosion(Image *image, std::vector<std::vector<int> > &kernel){
-    Image *proto_image = (Image *) malloc(sizeof(Image));
+    Image *proto_image = new Image();
 
     // Converter a imagem em uma matriz 2D de inteiros
     std::vector<std::vector<int> > image2d(image->height, std::vector<int>(image->width));

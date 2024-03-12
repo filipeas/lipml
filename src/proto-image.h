@@ -1,12 +1,9 @@
 #include <vector>
-#include <tuple>
 
 typedef struct Color {
     char r, g, b;
 } Color;
 
-// std::vector<std::vector<tuple<int, int, int> > > convertImageToMatrix(const std::vector<std::vector<Color> > &image);
-std::vector<std::vector<std::tuple<int, int, int>> > convertImageToMatrix(const std::vector<std::vector<Color> > &image);
 typedef struct Image{
     int width;
     int height;
@@ -16,6 +13,8 @@ typedef struct Image{
 
 // function forr create image
 Image *createImage(int width, int height);
+// destroy image
+void destroyImage(Image *image);
 // function for load image
 Image *loadImage(const char* filename);
 // function to convert image to gray scale
