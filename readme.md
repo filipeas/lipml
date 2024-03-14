@@ -11,7 +11,9 @@
 
 ## Functions
 - Operations
-    - Dilation
-    - Erosion
-    - Opening
-    - Closing
+    - [Dilation](https://github.com/filipeas/lipml/tree/master/pseudocodes.md?tab=readme-ov-file#dilation)
+    - [Erosion]((https://github.com/filipeas/lipml/tree/master/pseudocodes.md?tab=readme-ov-file#erosion))
+
+## Pendings
+- Make dynamic adjacency relation
+- Implement labeling connected components
