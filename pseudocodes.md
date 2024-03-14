@@ -1,13 +1,9 @@
 ## Dilation
-The math definition is:
-- 
+- The math definition is:
 
-The pseudocode is:
-- 
+- The pseudocode is:
 
 ## Erosion
-The math definition is:
-- 
+- The math definition is:
 
-The pseudocode is:
-- 
+- The pseudocode is:
