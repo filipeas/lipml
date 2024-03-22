@@ -1,49 +1,124 @@
 #include <iostream>
 #include <vector>
-#include <tuple>
-#include "proto-image.h"
+#include <queue>
+#include <unordered_set>
 
 using namespace std;
 
-int main(){
-    // const char* filename = "./images/morfology.png";
-    const char* filename = "./images/dog.png";
+struct Pixel
+{
+    int x, y;
+    int dist;
+};
 
-    // loading image
-    Image *image = loadImage(filename);
+vector<vector<int>> IFT(vector<vector<int> > &matrix, vector<pair<int, int>> &seeds){
+    int height = matrix.size();
+    int width = matrix[0].size();
 
-    // convert to gray scale
-    // Image *gray = convertToGrayscale(image);
+    vector<vector<int> > dist_matrix(height, vector<int>(width, INT_MAX)); // Create a distance matrix (dist_matrix) with infinite values, except for the seed pixels
+    vector<vector<int> > label_matrix(height, vector<int>(width, 0));// Create a label matrix (label_matrix) to keep track of the pixel labels
 
-    // check dimensions
-    cout << "Image width: " << image->width << endl;
-    cout << "Image height: " << image->height << endl;
-    cout << "Image channels: " << image->channels << endl;
+    queue<Pixel> q;
 
-    // creating new image
-    // Image *new_image = createImage(image->width, image->height);
+    for (auto& seed : seeds) {
+        int x = seed.first;
+        int y = seed.second;
 
-    // saving image
-    // saveImage(convertToGrayscale(image), "nova_imagem.png"); // salvando imagem em tons de cinza
-    // saveImage(image, "nova_imagem.png"); // salvando imagem colorida
+        dist_matrix[x][y] = 0;
+        label_matrix[x][y] = x * width + y;
+        q.push({x, y, 0});
+    }
 
-    // creating vectors
-    std::vector<std::vector<int> > kernel_row = rowKernel(9, 1);
-    std::vector<std::vector<int> > kernel_col = colKernel(3, 1);
-    std::vector<std::vector<int> > kernel_square = squareKernel(3, 1);
-    std::vector<std::vector<int> > kernel_rectangular = rectangularKernel(6, 3, 1);
-    std::vector<std::vector<int> > kernel_circular = circularKernel(3, 1);
+    while (!q.empty()) {
+        Pixel pixel = q.front();
+        q.pop();
 
-    // printing kernels
-    // printMatrix(kernel_col);
+        int x = pixel.x;
+        int y = pixel.y;
 
-    // dilation
-    saveImage(dilation(image, kernel_square), "dilation.png");
-    // erosion
-    saveImage(erosion(image, kernel_square), "erosion.png");
+        // define neighbors of pixel (refactor for make dinamic... (adjacency relation))
+        vector<pair<int, int>> neighbors = {{x+1, y}, {x-1, y}, {x, y+1}, {x, y-1}};
 
-    // destroy image
-    destroyImage(image);
+        for (auto& neighbor : neighbors){
+            int nx = neighbor.first;
+            int ny = neighbor.second;
 
+            if (nx >= 0 && nx < height && ny >= 0 && ny < width) {
+                int path_cost = 1; // path_cost function (refactor for make dinamic...)
+                if (dist_matrix[nx][ny] > dist_matrix[x][y] + path_cost) {
+                    dist_matrix[nx][ny] = dist_matrix[x][y] + path_cost;
+                    label_matrix[nx][ny] = label_matrix[x][y];
+                    q.push({nx, ny, dist_matrix[nx][ny]});
+                }
+            }
+        }
+    }
+
+    return label_matrix;
+}
+
+void printAllTree(const vector<vector<int>>& label_matrix){
+    for (const auto& row : label_matrix) {
+        for (int val : row) {
+            cout << val << " ";
+        }
+        cout << endl;
+    }
+}
+
+void printIsolatedTree(const vector<vector<int>>& label_matrix) {
+    int rows = label_matrix.size();
+    int cols = label_matrix[0].size();
+
+    // Conjunto para rastrear as etiquetas já impressas
+    unordered_set<int> etiquetas_impressas;
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            int etiqueta = label_matrix[i][j];
+            // Verifica se a etiqueta já foi impressa para evitar repetições
+            if (etiquetas_impressas.find(etiqueta) == etiquetas_impressas.end()) {
+                cout << "Árvore " << etiqueta << ":" << endl;
+                // Percorre a matriz de label_matrix para imprimir os pixels pertencentes à mesma árvore
+                for (int x = 0; x < rows; ++x) {
+                    for (int y = 0; y < cols; ++y) {
+                        if (label_matrix[x][y] == etiqueta) {
+                            cout << label_matrix[x][y] << " ";
+                        } else {
+                            cout << "  ";
+                        }
+                    }
+                    cout << endl;
+                }
+                cout << endl;
+                // Adiciona a etiqueta ao conjunto de etiquetas já impressas
+                etiquetas_impressas.insert(etiqueta);
+            }
+        }
+    }
+}
+
+int main()
+{
+    // vector<vector<int>> image = {
+    //     {1, 2, 3},
+    //     {4, 5, 6},
+    //     {7, 8, 9}
+    // };
+    vector<vector<int>> image = {
+        {1, 1, 1, 2, 2},
+        {1, 1, 3, 2, 2},
+        {1, 3, 3, 3, 2},
+        {4, 4, 4, 4, 2},
+        {4, 4, 4, 4, 4}
+    };
+    vector<pair<int, int>> seeds = {{0, 0}, {2, 2}}; // Seeds at (0, 0) and (2, 2)
+
+    auto result = IFT(image, seeds);
+
+    printAllTree(result);
+
+    printIsolatedTree(result);
+    
     return 0;
 }

@@ -21,6 +21,7 @@ CC_FLAGS=-c         \
          -pedantic	\
 		 -Wextra	\
 		 -O3		\
+		 -std=c++11
  
 # Command used at clean target
 RM = rm -rf
