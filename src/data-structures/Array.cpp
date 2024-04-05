@@ -4,7 +4,7 @@
 using namespace std;
 
 template<typename T>
-class Stack {
+class Array {
     private:
         vector<T> elements;
     

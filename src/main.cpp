@@ -6,7 +6,8 @@
 
 #include <Accelerate/Accelerate.h>
 
-#include "./data-structures/stack.cpp"
+#include "./data-structures/Array.cpp"
+#include "./data-structures/LinkedList.cpp"
 
 using namespace std;
 
@@ -125,12 +126,17 @@ int main()
 
     printIsolatedTree(result);
 
-    Stack<int> stack;
+    Array<int> stack;
     stack.push(1);
     stack.push(3);
     cout << stack.peek() << endl;
     cout << stack.pop() << endl;
     cout << stack.peek() << endl;
+
+    LinkedList<int> list;
+    list.append(1);
+    list.append(4);
+    list.print();
     
     return 0;
 }
