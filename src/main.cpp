@@ -2,6 +2,11 @@
 #include <vector>
 #include <queue>
 #include <unordered_set>
+#include <climits>
+
+#include <Accelerate/Accelerate.h>
+
+#include "./data-structures/stack.cpp"
 
 using namespace std;
 
@@ -119,6 +124,13 @@ int main()
     printAllTree(result);
 
     printIsolatedTree(result);
+
+    Stack<int> stack;
+    stack.push(1);
+    stack.push(3);
+    cout << stack.peek() << endl;
+    cout << stack.pop() << endl;
+    cout << stack.peek() << endl;
     
     return 0;
 }

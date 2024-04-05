@@ -12,6 +12,7 @@ OBJ=$(subst .cpp,.o,$(subst src,bin,$(C_SOURCE)))
  
 # Compiler and linker
 CC=g++
+# CC=g++-13
  
 # Flags for compiler
 CC_FLAGS=-c         \
@@ -21,7 +22,8 @@ CC_FLAGS=-c         \
          -pedantic	\
 		 -Wextra	\
 		 -O3		\
-		 -std=c++11
+		 -std=c++11	\
+		 -framework Accelerate
  
 # Command used at clean target
 RM = rm -rf
