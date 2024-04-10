@@ -11,7 +11,7 @@ The algorithm works by creating a forest of shortest paths in the image, where e
 [The paper of IFT is here.](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=343cb0ace2e88a237eb76db382c228bfcbaa053e)
 
 ## Dependences
-- None
+- None 
 
 ## How to compile c++
 - First, make shure you have c++ compile in your machine.
