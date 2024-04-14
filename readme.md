@@ -15,7 +15,11 @@ The algorithm works by creating a forest of shortest paths in the image, where e
 
 ## How to compile c++
 - First, make shure you have c++ compile in your machine.
-- Execute ``` make ``` on terminal.
+- Execute ``` chmod +x build.sh ``` on terminal. After, execute ``` ./build.sh ```.
+- Opcionally, you can execute ``` mkdir build ``` and ``` cd build ```. After, execute ``` cmake .. ``` and ``` make ```.
+
+## How to execute
+- After compile, into folder **build** have a file **lipml**. Execute ``` ./lipml ```;
 
 ## Functions
 - [IFT Algorithm](https://github.com/filipeas/lipml/tree/master/pseudocodes.md?tab=readme-ov-file#ift)
