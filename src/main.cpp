@@ -24,7 +24,7 @@ int main()
 
     // Criar objeto de regressão linear e treinar o modelo
     LinearRegression modelo(X, y, taxaAprendizado, numIteracoes);
-    modelo.train();
+    modelo.Train();
     
     // Obter e exibir os parâmetros finais do modelo
     vector<double> parametrosFinais = modelo.getFinalParameters();

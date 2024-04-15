@@ -17,10 +17,7 @@ class LinearRegression {
             vector<double> weights(numParameters, 0.0); // start all parameters with 0
 
             for (int i = 0; i < n; i++){
-                double y_pred = betas[0]; // y' or predicted value by model (start with bias b0)
-                for (size_t j = 0; j < X[i].size(); j++){
-                    y_pred += betas[j + 1] * X[i][j]; // coeficients of parameters
-                }
+                double y_pred = Predict(X[i]); // compute predict value by model
 
                 double error = y[i] - y_pred;
 
@@ -42,10 +39,7 @@ class LinearRegression {
             int n = X.size();
 
             for (int i = 0; i < n; i++){
-                double y_pred = betas[0]; // start with bias b0
-                for (size_t j = 0; j < X[i].size(); j++){
-                    y_pred += betas[j + 1] * X[i][j]; // coeficient of parameters
-                }
+                double y_pred = Predict(X[i]); // compute predict value by model
 
                 double error = y[i] - y_pred;
                 totalError += error * error; // error^2 because we need compute MSE
@@ -59,11 +53,20 @@ class LinearRegression {
             betas.resize(X[0].size() + 1, 0.0);
         }
 
-        void train() {
+        void Train() {
             for (int i = 0; i < iterations; i++) {
                 GradientDescent();
                 cout << "Iteration " << i + 1 << ", MSE_train: " << Compute_MSE() << endl;
             }
+        }
+
+        double Predict(const vector<double> &features) const {
+            double y_pred = betas[0]; // y' or predicted value by model (start with bias b0)
+            for (size_t j = 0; j < features.size(); j++){
+                y_pred += betas[j + 1] * features[j]; // coeficients of parameters
+            }
+
+            return y_pred;
         }
 
         vector<double> getFinalParameters() const {
