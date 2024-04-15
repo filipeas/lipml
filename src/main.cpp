@@ -23,7 +23,7 @@ int main()
     int numIteracoes = 1000; // Número de iterações de treinamento
 
     // Criar objeto de regressão linear e treinar o modelo
-    LinearRegression modelo(X, y, taxaAprendizado, numIteracoes);
+    LinearRegression modelo(X, y, taxaAprendizado, numIteracoes, 0);
     modelo.Train();
     
     // Obter e exibir os parâmetros finais do modelo
