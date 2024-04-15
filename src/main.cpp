@@ -15,8 +15,10 @@ int main()
     printf("Hello World");
 
     // Dados de exemplo
-    vector<vector<double>> X = {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}; // Features
-    vector<double> y = {3, 4, 5, 6, 7}; // Rótulos
+    // vector<vector<double>> X = {{1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 6}}; // Features
+    // vector<double> y = {3, 4, 5, 6, 7}; // Rótulos
+    vector<vector<double>> X = {{0, 0}, {0, 1}, {1, 0}, {1, 1}}; // Features
+    vector<double> y = {0, 0, 0, 1}; // Rótulos
 
     // Parâmetros de treinamento
     double taxaAprendizado = 0.01; // Taxa de aprendizado
