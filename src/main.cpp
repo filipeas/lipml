@@ -54,7 +54,7 @@ int main()
     int numIteracoes = 1000; // Número de iterações de treinamento
 
     // Criar objeto de regressão linear e treinar o modelo
-    LogisticRegression modelo(X, y, taxaAprendizado, numIteracoes, 0);
+    LogisticRegression modelo(X, y, taxaAprendizado, numIteracoes);
     modelo.Train();
 
     // Obter e exibir os parâmetros finais do modelo
